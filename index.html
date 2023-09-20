@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        textarea {
+            width: 100%;
+            height: 150px; /* You can adjust the height as needed */
+        }
+    </style>
+</head>
+<body>
+    <h1>Convert SPRITE CSS to Responsive</h1>
+    
+    <!-- Input Text Box -->
+    <label for="inputBox">Input:</label>
+    <textarea id="inputBox" placeholder="Enter text here" rows="5"></textarea>
+    
+    <!-- Output Text Box -->
+    <label for="outputBox">Output:</label>
+    <textarea id="outputBox" readonly rows="5"></textarea>
+    <script>
+            const inputBox = document.getElementById("inputBox");
+            const outputBox = document.getElementById("outputBox");
+
+            function finder(str,sr){
+                    if (str.includes(sr))
+                    return str;
+            }
+
+
+            function convertToResponsiveCSS(originalCSS) {
+                const lines = originalCSS.split('\n');
+                let responsiveCSS = '';
+                let y=0;
+                for (const line of lines) {
+                    if (line.trim().startsWith('.sprite')) {
+                    
+                                const parts = line.trim().split(/\s+/);
+                                let positionValues;
+                                const className = parts[0];
+                                const backgroundPosition = finder(line,'background-position');
+                                if(!backgroundPosition){
+                                    responsiveCSS+=`.sprite { background: url('images/sprite.png') no-repeat top left; width: 100%; height: auto; background-size: 100% auto; aspect-ratio:680/1354 ;  }\n`;
+                                    
+                                }else{
+                                    positionValues = backgroundPosition.match(/-?\d+/g);
+                                    const ab=100/(lines.length-2);
+                                    //const aspectRatio = 100 * yPosition / 3410;
+                                    responsiveCSS+=`${className} { background-position: 0 ${y}%;}\n`
+                                    y+=ab;
+                                }
+                        //console.log(positionValues)
+                        
+                            
+                        }
+
+                }
+
+                return responsiveCSS;   
+            }
+                
+                
+                // Add a "paste" event listener to the input box
+            inputBox.addEventListener("paste", function(e) {
+                // Prevent the default paste behavior (prevents text from being added to the input field)
+                e.preventDefault();
+
+                // Get the pasted text from the clipboard
+                const pastedText = e.clipboardData.getData("text");
+                // const responsiveCSS = convertToResponsiveCSS(pastedText);
+                //document.querySelector('#outputBox').textContent=responsiveCSS;
+                inputBox.value = pastedText;
+                outputBox.value = convertToResponsiveCSS(inputBox.value);
+            });
+    </script>
+</body>
+</html>
