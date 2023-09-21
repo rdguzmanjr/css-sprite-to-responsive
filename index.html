@@ -48,7 +48,7 @@
                                 }else{
                                     positionValues = backgroundPosition.match(/-?\d+/g);
                                     const ab=100/(lines.length-2);
-                                    responsiveCSS+=`${className} { background-position: 0 ${y}%;}\n`
+                                    responsiveCSS+=`${className.replace(/_/g, '-')} { background-position: 0 ${y}%;}\n`
                                     y+=ab;
                                 }
                         //console.log(positionValues)
