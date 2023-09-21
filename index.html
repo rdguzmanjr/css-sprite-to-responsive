@@ -43,12 +43,11 @@
                                 const className = parts[0];
                                 const backgroundPosition = finder(line,'background-position');
                                 if(!backgroundPosition){
-                                    responsiveCSS+=`.sprite { background: url('images/sprite.png') no-repeat top left; width: 100%; height: auto; background-size: 100% auto; aspect-ratio:680/1354 ;  }\n`;
+                                    responsiveCSS+=`${className} { background: url('images/sprite.png') no-repeat top left; width: 100%; height: auto; background-size: 100% auto; aspect-ratio:680/1354 ;  }\n`;
                                     
                                 }else{
                                     positionValues = backgroundPosition.match(/-?\d+/g);
                                     const ab=100/(lines.length-2);
-                                    //const aspectRatio = 100 * yPosition / 3410;
                                     responsiveCSS+=`${className} { background-position: 0 ${y}%;}\n`
                                     y+=ab;
                                 }
