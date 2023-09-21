@@ -81,6 +81,7 @@
                 //document.querySelector('#outputBox').textContent=responsiveCSS;
                 inputBox.value = pastedText;
                 outputBox.value = convertToResponsiveCSS(inputBox.value);
+                navigator.clipboard.writeText(outputBox.value);
             });
             domainChange.addEventListener("paste", function(e) {
                 // Prevent the default paste behavior (prevents text from being added to the input field)
